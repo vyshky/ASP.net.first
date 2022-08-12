@@ -1,31 +1,77 @@
-﻿//let checkbox1 = document.querySelector("id.digit");
-let textBox = document.getElementById("textbox");
+﻿let textBox = document.getElementById("textbox");
 let checkbox1 = document.getElementById("digit");
 let checkbox2 = document.getElementById("upperCase");
 let checkbox3 = document.getElementById("lowerCase");
 let result = document.getElementById("resulTextbox");
-let button = document.getElementById("generate");
+let checkBoxes = document.getElementsByClassName("checkboxes");
 
-//console.log(textBox.value);
-//console.log(checkbox1);
-//console.log(checkbox2);
-//console.log(checkbox3);
+let digit = false;
+let upperCase = false;
+let lowerCase = false;
 
-button.addEventListener("click", Generate);
 
-function Generate() {
+let button = document.getElementById("ShowResult");
+button.addEventListener("click", ShowResult);
+
+function ShowResult() {
     if (textBox.value > 100) return;
-    let randoString = makeid(textBox.value);
-    result.value = randoString;
+    if (textBox.value == 0) return;
+    let length = textBox.value;
+    result.value = RandomStringPart1(length);  
 }
 
-function makeid(length) {
+
+function RandomStringPart1(length) {
+    let randomNumeric = '0123456789';
+    let randomAlphabetUppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let randomAlphabetLowercase = 'abcdefghijklmnopqrstuvwxyz';
+    let randomAlphabet = randomAlphabetUppercase + randomAlphabetLowercase;
+    let randomAll = randomAlphabet + randomNumeric;
+    let randomAlphabetUppercaseNumeric = randomAlphabetUppercase + randomNumeric;
+    let randomAlphabetLowercaseNumeric = randomAlphabetLowercase + randomNumeric;
+
+    if (digit && upperCase && lowerCase) {
+        return RandomStringPart2(randomAll, length);
+    }
+    else if (digit && !upperCase && !lowerCase) {
+        return RandomStringPart2(randomNumeric, length);
+    }
+    else if (!digit && upperCase && !lowerCase) {
+        return RandomStringPart2(randomAlphabetUppercase, length);
+    }
+    else if (!digit && !upperCase && lowerCase) {
+        return RandomStringPart2(randomAlphabetLowercase, length);
+    }
+    else if (digit && upperCase && !lowerCase) {
+        return RandomStringPart2(randomAlphabetUppercaseNumeric, length);
+    }
+    else if (digit && !upperCase && lowerCase) {
+        return RandomStringPart2(randomAlphabetLowercaseNumeric, length);
+    }
+    else if (!digit && upperCase && lowerCase) {
+        return RandomStringPart2(randomAlphabet, length);
+    }
+    throw Error("Исключение : нет подходящей проверки для чекбоксов");
+}
+
+function RandomStringPart2(str, length) {
     let result = '';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
+    let charactersLength = str.length;
     for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() *
+        result += str.charAt(Math.floor(Math.random() *
             charactersLength));
     }
     return result;
+}
+
+function filtrSettings() {
+    if (event.target.id == "digit") {
+        digit = event.target.checked;
+    }
+    else if (event.target.id == "upperCase") {
+        upperCase = event.target.checked;
+    }
+    else if (event.target.id == "lowerCase") {
+        lowerCase = event.target.checked;
+    }
 }
