@@ -1,0 +1,30 @@
+﻿@page
+@model PrivacyModel
+@{
+	ViewData["Title"] = "Random String";
+}
+<h1>@ViewData["Title"]</h1>
+
+<body>	
+		<lable>Длина строки</lable>
+		<input type="text" id="textbox" name="textbox"><br>
+
+		<input type="checkbox" id="digit" name="digit" checked>
+		<lable>Numeric digits</lable><br>
+
+		<input type="checkbox" id="upperCase" name="upperCase" nochecked>
+		<lable>Upper Case</lable><br>
+
+		<input type="checkbox" id="lowerCase" name="lowerCase"  nochecked>
+		<lable>Lower Case</lable><br>
+
+		<input type="submit" id="generate" value="Generate"><br>
+
+
+	<div>
+		<lable>Result</lable>
+		<input type="text" id="resulTextbox" name="resulTextbox"><br>
+	</div>
+
+	<script src="~/js/script.js"></script>	
+</body>
